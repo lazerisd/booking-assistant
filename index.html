@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OS Automation | AI Booking Assistants for UK Service Businesses</title>
+<meta name="description" content="I build AI booking assistants for UK salons, clinics and garages. Answers questions, books, reschedules and cancels in your real calendar, 24/7. Fixed GBP 150.">
+
+<!-- ====== META PIXEL: replace PIXEL_ID_HERE with your real pixel ID ====== -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window,document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', 'PIXEL_ID_HERE');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=PIXEL_ID_HERE&ev=PageView&noscript=1"/></noscript>
+<!-- ====== END META PIXEL ====== -->
+
+<style>
+:root{
+  --bg:#ffffff; --ink:#111418; --ink-soft:#4a5560; --line:#e4e8ec;
+  --accent:#1a5f4a; --accent-ink:#ffffff; --tint:#f4f7f5; --warn:#8a4b00;
+  --maxw:720px;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  padding-inline:20px;
+}
+.wrap{max-width:var(--maxw); margin:0 auto}
+header{padding-block:28px 0}
+.brandbar{font-size:17px; font-weight:700; letter-spacing:-.01em; margin:0 0 20px; color:var(--accent)}
+.eyebrow{font-size:13px; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-soft); font-weight:600}
+h1{font-size:clamp(28px,6vw,40px); line-height:1.15; letter-spacing:-.02em; margin:14px 0 16px}
+.lede{font-size:clamp(17px,2.6vw,19px); color:var(--ink-soft); margin:0 0 28px}
+h2{font-size:clamp(20px,3.6vw,24px); line-height:1.25; letter-spacing:-.01em; margin:44px 0 14px}
+h3{font-size:16px; margin:0 0 6px}
+p{margin:0 0 14px}
+ul{margin:0 0 14px; padding-left:22px}
+li{margin-bottom:9px}
+a{color:var(--accent)}
+.btn{
+  display:inline-block; background:var(--accent); color:var(--accent-ink);
+  text-decoration:none; font-weight:650; font-size:17px;
+  padding:15px 26px; border-radius:8px; border:0; cursor:pointer;
+}
+.btn:hover{filter:brightness(1.12)}
+.btn-row{margin:0 0 10px}
+.micro{font-size:13.5px; color:var(--ink-soft); margin:0 0 32px}
+.card{background:var(--tint); border:1px solid var(--line); border-radius:10px; padding:20px; margin-bottom:14px}
+.card p:last-child{margin-bottom:0}
+.grid{display:grid; gap:14px; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); margin-bottom:14px}
+.price{font-size:30px; font-weight:700; letter-spacing:-.02em; margin:0 0 4px}
+.price span{font-size:15px; font-weight:500; color:var(--ink-soft)}
+form{margin:0}
+label{display:block; font-size:14px; font-weight:600; margin:16px 0 6px}
+input,textarea,select{
+  width:100%; font:inherit; color:inherit; background:var(--bg);
+  border:1px solid var(--line); border-radius:7px; padding:12px 13px;
+}
+input:focus,textarea:focus,select:focus{outline:2px solid var(--accent); outline-offset:1px; border-color:var(--accent)}
+textarea{min-height:90px; resize:vertical}
+.req{color:var(--warn)}
+#formMsg{margin-top:14px; font-size:15px; font-weight:600}
+hr{border:0; border-top:1px solid var(--line); margin:44px 0}
+footer{padding-block:0 48px; font-size:13.5px; color:var(--ink-soft)}
+.dia{display:block; width:100%; max-width:100%; height:auto; color:var(--ink); font-family:inherit}
+.dia-tall{display:none}
+@media (max-width:560px){ .dia-wide{display:none} .dia-tall{display:block} }
+.dia .box{fill:none; stroke:currentColor; stroke-width:1.5; opacity:.45}
+.dia .lead{fill:none; stroke:var(--accent); stroke-width:2}
+.dia .ln{stroke:currentColor; stroke-width:1.5; opacity:.45; fill:none}
+.dia .lnlead{stroke:var(--accent); stroke-width:2; fill:none}
+.dia .nm{fill:currentColor; font-size:12px}
+.dia .nmlead{fill:var(--accent); font-size:12px; font-weight:600}
+.dia .arrowlbl{fill:currentColor; font-size:11px; opacity:.6}
+.dia .arrowlbllead{fill:var(--accent); font-size:11px}
+.dia .row{fill:currentColor; font-size:12px; font-weight:700; opacity:.55; letter-spacing:.04em}
+.dia .headlead{fill:var(--accent)}
+.ico{flex:0 0 auto; color:var(--accent)}
+.card h3{display:flex; align-items:center; gap:9px}
+.figwrap{margin:0 0 20px; padding:0}
+.figwrap figcaption{font-size:13.5px; color:var(--ink-soft); margin-top:10px}
+.shot{margin:0 0 18px; padding:0}
+.shot img{display:block; width:100%; height:auto; border:1px solid var(--line); border-radius:10px}
+.shot figcaption{font-size:13.5px; color:var(--ink-soft); margin-top:8px}
+.honest{font-size:14px; color:var(--ink-soft); border-left:3px solid var(--line); padding-left:14px; margin:0 0 14px}
+@media (prefers-color-scheme:dark){
+  :root{--bg:#101316; --ink:#eef1f4; --ink-soft:#a3aeb8; --line:#262c33;
+        --accent:#39b58d; --accent-ink:#06130e; --tint:#171b1f; --warn:#e0a35c}
+}
+</style>
+</head>
+<body>
+
+<header class="wrap">
+  <p class="brandbar">OS Automation</p>
+  <p class="eyebrow">For UK salons, clinics, garages &amp; driving schools</p>
+  <h1>Your phone rings all day with the same five questions.</h1>
+  <p class="lede">I build an AI assistant that answers them, and books, reschedules or cancels straight in your real calendar. Day or night, including the hours nobody is at the desk. &pound;150 to build, &pound;29 a month, live in 5 working days.</p>
+  <p class="btn-row"><a class="btn" href="#enquire" onclick="try{if(typeof fbq==='function')fbq('trackCustom','CTAClick',{position:'hero'})}catch(e){}">See if it fits my business</a></p>
+  <p class="micro">No call needed to start. Fill the short form and I will reply with exactly what your version would do.</p>
+</header>
+
+<main class="wrap">
+
+<h2>The actual cost of an unanswered message</h2>
+<p>Every repeat question pulls you away from the customer who is already in front of you. And the ones who message at 9pm, when the desk is empty, do not wait. They message the next place on the list.</p>
+<ul>
+  <li>Opening hours, prices, availability, address, parking. Asked again, every day.</li>
+  <li>Evenings and weekends generate enquiries while nobody is there to answer them.</li>
+  <li>Double bookings get noticed by the customer before they get noticed by you.</li>
+</ul>
+
+<h2>How it is different</h2>
+<figure class="figwrap">
+<svg class="dia dia-wide" viewBox="0 0 700 238" role="img"
+     aria-label="Two rows compared. Top row: a customer asks at 9pm, a chatbot logs the message into your inbox, and you book it yourself the next morning in the calendar. Bottom row: the customer asks at 9pm and the assistant checks, books, moves and cancels directly in your calendar, with no step left for you.">
+  <defs>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <polygon points="0,1 10,5 0,9" fill="currentColor" opacity=".45"></polygon>
+    </marker>
+    <marker id="arlead" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <polygon points="0,1 10,5 0,9" fill="var(--accent)"></polygon>
+    </marker>
+  </defs>
+
+  <text class="row" x="10" y="16">MOST CHATBOTS</text>
+  <rect class="box" x="10"  y="54" width="120" height="44" rx="7"></rect>
+  <rect class="box" x="186" y="54" width="120" height="44" rx="7"></rect>
+  <rect class="box" x="362" y="54" width="120" height="44" rx="7"></rect>
+  <rect class="box" x="538" y="54" width="120" height="44" rx="7"></rect>
+  <text class="nm" x="70"  y="81" text-anchor="middle">Customer</text>
+  <text class="nm" x="246" y="81" text-anchor="middle">Chatbot</text>
+  <text class="nm" x="422" y="81" text-anchor="middle">Your inbox</text>
+  <text class="nm" x="598" y="81" text-anchor="middle">Calendar</text>
+  <line class="ln" x1="130" y1="76" x2="182" y2="76" marker-end="url(#ar)"></line>
+  <line class="ln" x1="306" y1="76" x2="358" y2="76" marker-end="url(#ar)"></line>
+  <line class="ln" x1="482" y1="76" x2="534" y2="76" marker-end="url(#ar)"></line>
+  <text class="arrowlbl" x="156" y="44" text-anchor="middle">asks at 9pm</text>
+  <text class="arrowlbl" x="332" y="44" text-anchor="middle">logs the message</text>
+  <text class="arrowlbl" x="508" y="44" text-anchor="middle">you book it, next morning</text>
+
+  <text class="row headlead" x="10" y="140">THIS ONE</text>
+  <rect class="box"  x="10"  y="178" width="120" height="44" rx="7"></rect>
+  <rect class="lead" x="186" y="178" width="120" height="44" rx="7"></rect>
+  <rect class="lead" x="362" y="178" width="120" height="44" rx="7"></rect>
+  <text class="nm"     x="70"  y="205" text-anchor="middle">Customer</text>
+  <text class="nmlead" x="246" y="205" text-anchor="middle">The assistant</text>
+  <text class="nmlead" x="422" y="205" text-anchor="middle">Your calendar</text>
+  <line class="lnlead" x1="130" y1="200" x2="182" y2="200" marker-end="url(#arlead)"></line>
+  <line class="lnlead" x1="310" y1="200" x2="358" y2="200" marker-start="url(#arlead)" marker-end="url(#arlead)"></line>
+  <text class="arrowlbllead" x="156" y="168" text-anchor="middle">asks at 9pm</text>
+  <text class="arrowlbllead" x="334" y="168" text-anchor="middle">checks, books, moves, cancels</text>
+  <text class="arrowlbllead" x="506" y="196">No step left</text>
+  <text class="arrowlbllead" x="506" y="211">for you.</text>
+</svg>
+
+<svg class="dia dia-tall" viewBox="0 0 340 520" aria-hidden="true">
+  <defs>
+    <marker id="art" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <polygon points="0,1 10,5 0,9" fill="currentColor" opacity=".45"></polygon>
+    </marker>
+    <marker id="artlead" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <polygon points="0,1 10,5 0,9" fill="var(--accent)"></polygon>
+    </marker>
+  </defs>
+
+  <text class="row" x="10" y="14">MOST CHATBOTS</text>
+  <rect class="box" x="10" y="26"  width="200" height="40" rx="7"></rect>
+  <rect class="box" x="10" y="96"  width="200" height="40" rx="7"></rect>
+  <rect class="box" x="10" y="166" width="200" height="40" rx="7"></rect>
+  <rect class="box" x="10" y="236" width="200" height="40" rx="7"></rect>
+  <text class="nm" x="110" y="51"  text-anchor="middle">Customer</text>
+  <text class="nm" x="110" y="121" text-anchor="middle">Chatbot</text>
+  <text class="nm" x="110" y="191" text-anchor="middle">Your inbox</text>
+  <text class="nm" x="110" y="261" text-anchor="middle">Calendar</text>
+  <line class="ln" x1="110" y1="66"  x2="110" y2="92"  marker-end="url(#art)"></line>
+  <line class="ln" x1="110" y1="136" x2="110" y2="162" marker-end="url(#art)"></line>
+  <line class="ln" x1="110" y1="206" x2="110" y2="232" marker-end="url(#art)"></line>
+  <text class="arrowlbl" x="220" y="83">asks at 9pm</text>
+  <text class="arrowlbl" x="220" y="153">logs the message</text>
+  <text class="arrowlbl" x="220" y="217">you book it,</text>
+  <text class="arrowlbl" x="220" y="230">next morning</text>
+
+  <text class="row headlead" x="10" y="312">THIS ONE</text>
+  <rect class="box"  x="10" y="324" width="200" height="40" rx="7"></rect>
+  <rect class="lead" x="10" y="394" width="200" height="40" rx="7"></rect>
+  <rect class="lead" x="10" y="464" width="200" height="40" rx="7"></rect>
+  <text class="nm"     x="110" y="349" text-anchor="middle">Customer</text>
+  <text class="nmlead" x="110" y="419" text-anchor="middle">The assistant</text>
+  <text class="nmlead" x="110" y="489" text-anchor="middle">Your calendar</text>
+  <line class="lnlead" x1="110" y1="364" x2="110" y2="390" marker-end="url(#artlead)"></line>
+  <line class="lnlead" x1="110" y1="438" x2="110" y2="460" marker-start="url(#artlead)" marker-end="url(#artlead)"></line>
+  <text class="arrowlbllead" x="220" y="381">asks at 9pm</text>
+  <text class="arrowlbllead" x="220" y="438">checks, books,</text>
+  <text class="arrowlbllead" x="220" y="451">moves, cancels</text>
+</svg>
+<figcaption>Most chatbots stop at your inbox, which leaves the actual booking to you in the morning. This one works in the calendar itself. That is also why it can find a booking again later and move or cancel it.</figcaption>
+</figure>
+
+<h2>What it does</h2>
+<div class="grid">
+  <div class="card">
+    <h3><svg class="ico" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4L3 21l1.1-4.6A8.4 8.4 0 1 1 21 11.5z"></path><path d="M9.2 9.3a2.8 2.8 0 0 1 5.5.7c0 1.9-2.7 2.3-2.7 2.3"></path><path d="M12 16.2h.01"></path></svg>Answers your FAQs</h3>
+    <p>Hours, prices, services, location, policies. It answers from your information only. If it does not know, it hands over to you instead of inventing an answer.</p>
+  </div>
+  <div class="card">
+    <h3><svg class="ico" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"></rect><path d="M3 10h18M8 3v4M16 3v4"></path><path d="M9 15.5l2 2 4-4"></path></svg>Books into your real calendar</h3>
+    <p>Checks genuine availability, then creates the appointment in your Google Calendar. Not a form that lands in an inbox for you to process later.</p>
+  </div>
+  <div class="card">
+    <h3><svg class="ico" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 12a8.5 8.5 0 1 1-2.6-6.1"></path><path d="M20.8 4v4.4h-4.4"></path><path d="M12 7.6V12l2.7 1.8"></path></svg>Reschedules and cancels</h3>
+    <p>Finds the customer's existing booking, confirms with them, then moves or cancels it. The part most chatbots simply cannot do.</p>
+  </div>
+  <div class="card">
+    <h3><svg class="ico" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.3 3.9 1.9 18a2 2 0 0 0 1.7 3h16.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"></path><path d="M12 9.5v4M12 17.3h.01"></path></svg>Flags double bookings</h3>
+    <p>A daily check across the next two weeks of your calendar. Overlaps get logged before a customer turns up to a clash.</p>
+  </div>
+</div>
+
+<h2>What I have actually built</h2>
+<p>OS Automation is one person: Dominykas. Three years a laser engineer, then project management, now building automation full time. Not an agency, no account manager, no handover. You talk to whoever builds it, start to finish.</p>
+<p class="honest">I would rather show you working systems than quote industry statistics at you. Everything below I built and tested end to end myself, against live Google Calendar and Google Sheets accounts, with real appointments created, found, moved and cancelled.</p>
+
+<!-- ====== EKRANO NUOTRAUKA ======================================================
+     Ta pati nuotrauka, kuria darai creative variantui B.
+     1. Issaugok ja cia salia, pavadinimu  proof-reschedule.png
+     2. Istrink sias dvi komentaro eilutes (si ir paskutine), kad figure taptu matoma
+     3. git add proof-reschedule.png  ir deploy'ink kartu su index.html
+     Kol failo nera, NEatkomentuok - rodysis suleges paveikslo ikonele.
+
+<figure class="shot">
+  <img src="proof-reschedule.png" alt="A customer asks to move their appointment, the assistant confirms, and the booking appears at the new time in Google Calendar" width="1200" height="675">
+  <figcaption>A real reschedule: the customer asks, the assistant finds the existing booking, confirms, and moves it in the calendar.</figcaption>
+</figure>
+     ====== EKRANO NUOTRAUKOS PABAIGA ====== -->
+<ul>
+  <li><strong>AI booking agent</strong> with availability checking, booking, lookup, cancellation and rescheduling. Nine connected steps, verified against a live calendar.</li>
+  <li><strong>Double booking detector</strong> that scans the next 14 days each morning and logs any overlap. Tested by deliberately creating a clash and confirming it was caught.</li>
+  <li><strong>Daily bookings summary</strong> written into a spreadsheet each morning, so the owner sees the day without opening the calendar.</li>
+  <li><strong>Weekly insights</strong> that read the booking history and write a short plain-language summary: busiest day, most booked service, volume trend.</li>
+  <li><strong>Document knowledge assistant</strong> answering questions grounded in the business's own documents rather than general internet guesswork.</li>
+  <li><strong>Three delivered automation projects</strong> on Upwork, each rated 5 out of 5: a customer lifecycle automation, an order and reporting automation, and a chatbot with lead capture. <a href="https://www.upwork.com/freelancers/~01e7fc3141118440c1" target="_blank" rel="noopener">See the profile and the ratings</a>.</li>
+</ul>
+<p class="micro">The Upwork projects above are under my own name, not the OS Automation one, if you want to go and check them.</p>
+
+<h2>Price</h2>
+<div class="card">
+  <p class="price">&pound;150 <span>to build it</span></p>
+  <p class="price" style="font-size:22px">&pound;29 <span>a month after that, cancel any time</span></p>
+  <p>The &pound;150 covers the build, your own information loaded in, installation on your site, and testing it with you until it behaves.</p>
+  <p><strong>What the &pound;29 is actually for.</strong> Hosting and the AI usage, so there is no second bill from anyone else. Changes whenever your prices, hours or services change. And a check every single day that your assistant is still answering, so if it stops, I know before your customers do.</p>
+  <p><strong>Two weeks to decide.</strong> If it is not doing a useful job in the first two weeks, I refund the &pound;150 and we stop. After that there is no contract and no notice period, so you can leave whenever you like.</p>
+</div>
+
+<hr>
+
+<h2 id="enquire">Tell me about your business</h2>
+<p>Two required fields, three optional. I reply personally, usually same day, with what your specific version would do and what it would not. If it is a bad fit for you, I will say so.</p>
+
+<form id="leadForm" action="https://formspree.io/f/FORMSPREE_ID_HERE" method="POST">
+  <label for="biz">Business name <span class="req">*</span></label>
+  <input id="biz" name="business" type="text" required autocomplete="organization">
+
+  <label for="site">Website or Facebook page</label>
+  <input id="site" name="website" type="text" placeholder="Paste a link, or leave blank if you have neither">
+
+  <label for="email">Email <span class="req">*</span></label>
+  <input id="email" name="email" type="email" required autocomplete="email">
+
+  <label for="type">What kind of business is it?</label>
+  <select id="type" name="business_type">
+    <option value="">Choose one</option>
+    <option>Salon, barber or beauty</option>
+    <option>Dental or medical clinic</option>
+    <option>Veterinary clinic</option>
+    <option>Garage, MOT or detailing</option>
+    <option>Driving school</option>
+    <option>Gym, yoga or fitness studio</option>
+    <option>Restaurant or cafe</option>
+    <option>Something else</option>
+  </select>
+
+  <label for="pain">What eats the most time right now?</label>
+  <textarea id="pain" name="time_sink" placeholder="For example: people ringing to ask prices, no-shows, messages piling up overnight"></textarea>
+
+  <input type="hidden" name="_subject" value="New enquiry from Meta ad landing page">
+  <input type="hidden" id="src" name="source" value="">
+
+  <p style="margin-top:22px"><button class="btn" type="submit">Send enquiry</button></p>
+  <p id="formMsg" role="status" aria-live="polite"></p>
+</form>
+
+<footer>
+  <hr>
+  <p>OS Automation &middot; Dominykas A. &middot; Vilnius, Lithuania &middot; working with UK businesses remotely<br>
+  I use your details only to reply to this enquiry. No list, no newsletter, no passing them on.</p>
+</footer>
+
+</main>
+
+<script>
+// Capture Meta ad parameters so each lead can be traced back to its creative.
+(function(){
+  var q = new URLSearchParams(location.search);
+  var bits = [];
+  ['utm_source','utm_campaign','utm_content','fbclid'].forEach(function(k){
+    if (q.get(k)) bits.push(k + '=' + q.get(k));
+  });
+  var el = document.getElementById('src');
+  if (el) el.value = bits.join(' | ') || 'direct';
+})();
+
+// Submit without leaving the page, so the Lead event reliably fires.
+document.getElementById('leadForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  var form = e.target;
+  var btn = form.querySelector('button[type=submit]');
+  var msg = document.getElementById('formMsg');
+  btn.disabled = true;
+  btn.textContent = 'Sending...';
+  msg.textContent = '';
+
+  fetch(form.action, {
+    method: 'POST',
+    body: new FormData(form),
+    headers: { 'Accept': 'application/json' }
+  }).then(function(r){
+    if (!r.ok) throw new Error('bad status ' + r.status);
+    // Pixel is optional: an ad blocker must never turn a successful
+    // submission into a visible error.
+    try { if (typeof fbq === 'function') fbq('track', 'Lead'); } catch (err) {}
+    form.reset();
+    msg.style.color = 'var(--accent)';
+    msg.textContent = 'Got it. I will reply to that email, usually the same day.';
+    btn.style.display = 'none';
+  }).catch(function(){
+    msg.style.color = 'var(--warn)';
+    msg.innerHTML = 'Something went wrong sending that. Email me directly at <a href="mailto:dominykasinfo@proton.me">dominykasinfo@proton.me</a> and I will pick it up.';
+    btn.disabled = false;
+    btn.textContent = 'Send enquiry';
+  });
+});
+</script>
+
+</body>
+</html>
